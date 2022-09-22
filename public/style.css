@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+    font-weight: 500;    
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Estrutura do jogo */
+img {
+    width: 350px;
+    height: 400px;
+}
+
+.gameScreen {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.gameScreen button {
+    background-color: rgb(190, 143, 190);
+    border-color: rgb(190, 143, 190);
+    height: 50px;
+    width: 150px;
+    margin-top: 20px;
+    color: white;
+}
+
+/* Estrutura do teclado */
+.keyboardScreen {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.upperKeyboard,
+.lowerKeyboard {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.key {
+    color: rgb(109, 109, 109);
+    background-color: darkgray;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+}
+
+.guessWord {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.guessWord button,
+input {
+    height: 30px;
+}
+
+.guessWord button {
+    color: rgb(93, 136, 150);
+    background-color: rgb(173, 216, 230);
+    width: 100px;
+    height: 30px;
+}
+
+.guessWord input {
+    background-color: rgb(236, 236, 236);
+    width: 300px;
+    height: 30px;
+}
+
+.guessWord input::placeholder {
+    color: rgb(150, 150, 150);
+    font-size: medium;
+}
