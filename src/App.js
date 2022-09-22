@@ -1,12 +1,15 @@
-const image = [
-    "./assets/forca0.png",
-    "./assets/forca1.png",
-    "./assets/forca2.png",
-    "./assets/forca3.png",
-    "./assets/forca4.png",
-    "./assets/forca5.png",
-    "./assets/forca6.png"
-]
+import "./styles/reset.css";
+import "./styles/style.css";
+
+import img0 from "./assets/forca0.png";
+import img1 from "./assets/forca1.png";
+import img2 from "./assets/forca2.png";
+import img3 from "./assets/forca3.png";
+import img4 from "./assets/forca4.png";
+import img5 from "./assets/forca5.png";
+import img6 from "./assets/forca6.png";
+
+const images = [img0, img1, img2, img3, img4, img5, img6];
 
 let i = 0;
 
@@ -15,11 +18,11 @@ export default function App() {
         i++;
         console.log(i);
     }
-    
+
     return (
         <div className="container">
             <div className="gameScreen">
-                <img src={image[i]} alt="vaiCurintia 🦅"/>
+                <img src={images[i]} alt="vaiCurintia 🦅" />
 
                 <button onClick={escolhaPalavra}>Escolher palavra</button>
             </div>
