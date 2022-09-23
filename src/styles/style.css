@@ -32,15 +32,15 @@ button:active {
 
 /* Estrutura do jogo */
 img {
-    width: 350px;
-    height: 400px;
+    width: 250px;
+    height: 300px;
 }
 
 .gameScreen {
     width: 750px;
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
+    margin: 5px 0 20px 0;
     position: relative;
 }
 
@@ -63,9 +63,16 @@ img {
 }
 
 .choosenWord h1 {
-    color: black;
     font-size: 45px;
     margin-left: 10px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
 }
 
 /* Estrutura do teclado */

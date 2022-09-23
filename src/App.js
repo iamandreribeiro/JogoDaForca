@@ -11,7 +11,7 @@ import img4 from "./assets/forca4.png";
 import img5 from "./assets/forca5.png";
 import img6 from "./assets/forca6.png";
 
-import words from "./Words"
+import words from "./Words";
 
 const images = [img0, img1, img2, img3, img4, img5, img6];
 
@@ -19,6 +19,8 @@ const letters = [
     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
     "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 ];
+
+let randomElement = "";
 
 let i = 0;
 
@@ -31,39 +33,45 @@ export default function App() {
     const [hangman, setHangman] = useState(images[i]);
     const [word, setWord] = useState([]);
     const [hideWord, setHideWord] = useState([]);
+    const [input, setInput] = useState("");
+    const [color, setColor] = useState("");
 
     function escolhaPalavra() {
         setDisabled(true);
         setDisabledInput(false);
         setDisabledButton(false);
 
-        const randomElement = words[Math.floor(Math.random() * words.length)];
+        randomElement = words[Math.floor(Math.random() * words.length)];
         console.log(randomElement);
         setWord(randomElement.split(""));
-     
-        for(let i = 0; i < randomElement.length; i++) {
+
+        for (let i = 0; i < randomElement.length; i++) {
             novoArray.push('_');
         }
 
         console.log(novoArray.length);
-        setHideWord(novoArray);        
+        setHideWord(novoArray);
     }
 
-    // function escolhaPalavra() {
-    //     if (i == 5) {
-    //         setDisabled(true);
-    //         setTimeout(() => {
-    //             alert("Perdeu");
-    //         }, 200)
-    //     }
+    function guessWord(e) {
+        setDisabledInput(true);
+        setInput(e.target.value);
 
-    //     i++;
-    //     setHangman(images[i]);
-    // }    
-
-    console.log(hideWord);
-    console.log(novoArray);
-    console.log(word);
+        if (input.toLowerCase() === randomElement.toLowerCase()) {
+            setColor("green");
+            setHideWord(word);
+            setTimeout(() => {                
+                alert("Você ganhou o jogo");
+            }, 50);
+        } else {
+            setHangman(images[images.length - 1]);
+            setColor("red");
+            setHideWord(word);
+            setTimeout(() => {
+                alert("Você perdeu o jogo");
+            }, 50);
+        }
+    }
 
     return (
         <div className="container">
@@ -76,7 +84,9 @@ export default function App() {
                     {
                         hideWord.map((word, index) => {
                             return <div key={index}>
-                                <h1>{word.toUpperCase()}</h1>
+                                <h1 className={color}>
+                                    {word.toUpperCase()}
+                                </h1>
                             </div>
                         })
                     }
@@ -96,8 +106,8 @@ export default function App() {
 
                 <div className="guessWord">
                     Já sei a palavra!
-                    <input type="text" placeholder="Escreva aqui..." onChange={() => console.log("Mudou o valor!")} disabled={disabledInput}></input>
-                    <button>Chutar</button>
+                    <input type="text" placeholder="Escreva aqui..." onChange={(e) => setInput(e.target.value)} disabled={disabledInput}></input>
+                    <button onClick={guessWord} disabled={disabledInput}>Chutar</button>
                 </div>
             </div>
         </div>
