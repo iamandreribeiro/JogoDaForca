@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import "./styles/reset.css";
 import "./styles/style.css";
 
@@ -11,58 +13,41 @@ import img6 from "./assets/forca6.png";
 
 const images = [img0, img1, img2, img3, img4, img5, img6];
 
+const letters = [
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+];
+
 let i = 0;
 
 export default function App() {
-    function escolhaPalavra() {
-        i++;
-        console.log(i);
-    }
+    const [disabled, setDisabled] = useState(false);
+    const [disabledInput, setDisabledInput] = useState(true);
+    const [disabledButton, setDisabledButton] = useState(true);
+    const [hangman, setHangman] = useState(images[i]);
 
     return (
         <div className="container">
             <div className="gameScreen">
-                <img src={images[i]} alt="vaiCurintia 🦅" />
+                <img src={hangman} alt="vaiCurintia 🦅" />
 
-                <button onClick={escolhaPalavra}>Escolher palavra</button>
+                <button disabled={disabled}>Escolher palavra</button>
             </div>
 
             <div className="keyboardScreen">
-                <div className="upperKeyboard">
-                    <button className="key">A</button>
-                    <button className="key">B</button>
-                    <button className="key">C</button>
-                    <button className="key">D</button>
-                    <button className="key">E</button>
-                    <button className="key">F</button>
-                    <button className="key">G</button>
-                    <button className="key">H</button>
-                    <button className="key">I</button>
-                    <button className="key">J</button>
-                    <button className="key">K</button>
-                    <button className="key">L</button>
-                    <button className="key">M</button>
-                </div>
-
-                <div className="lowerKeyboard">
-                    <button className="key">N</button>
-                    <button className="key">O</button>
-                    <button className="key">P</button>
-                    <button className="key">Q</button>
-                    <button className="key">R</button>
-                    <button className="key">S</button>
-                    <button className="key">T</button>
-                    <button className="key">U</button>
-                    <button className="key">V</button>
-                    <button className="key">W</button>
-                    <button className="key">X</button>
-                    <button className="key">Y</button>
-                    <button className="key">Z</button>
+                <div className="keyboard">
+                    {
+                        letters.map((letter, index) => {
+                            return <button value={letter} key={index} className="key" disabled={disabledButton}>
+                                {letter}
+                            </button>
+                        })
+                    }
                 </div>
 
                 <div className="guessWord">
                     Já sei a palavra!
-                    <input type="text" placeholder="Escreva aqui..."></input>
+                    <input type="text" placeholder="Escreva aqui..." disabled={disabledInput}></input>
                     <button>Chutar</button>
                 </div>
             </div>
