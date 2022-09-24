@@ -36,7 +36,7 @@ export default function App() {
     const [input, setInput] = useState("");
     const [color, setColor] = useState("");
 
-    function escolhaPalavra() {
+    function chooseWord() {
         setDisabled(true);
         setDisabledInput(false);
         setDisabledButton(false);
@@ -78,7 +78,7 @@ export default function App() {
             <div className="gameScreen">
                 <img src={hangman} alt="vaiCurintia :eagle:" />
 
-                <button onClick={escolhaPalavra} disabled={disabled}>Escolher palavra</button>
+                <button onClick={chooseWord} disabled={disabled}>Escolher palavra</button>
 
                 <div className="choosenWord">
                     {
