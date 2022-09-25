@@ -64,6 +64,23 @@ export default function App() {
         for (let i = 0; i < randomWord.length; i++) {
             guessArray.push(randomWord[i]);
         }
+
+        if (input.toLowerCase() === randomWord.toLowerCase()) {
+            setColor("green");
+            setHideWord(guessArray);
+            setTimeout(() => {
+                alert("Parabéns!!! Você ganhou o jogo! 😁");
+                window.location.reload();
+            }, 50);
+        } else {
+            setHangman(images[images.length - 1]);
+            setColor("red");
+            setHideWord(guessArray);
+            setTimeout(() => {
+                alert("Poxa, que pena! Você perdeu... 😞");
+                window.location.reload();
+            }, 50);
+        }
     }
 
     function pickKey(key) {
@@ -81,12 +98,36 @@ export default function App() {
                 setHideWord(novoArray);
             }
         })
+
+        checkWin();
     }
 
     function wrongGuess() {
         i++;
 
         setHangman(images[i]);
+
+        if(i > 5) {
+            setHangman(images[images.length - 1]);
+            setColor("red");
+            setHideWord(word);
+            setTimeout(() => {
+                alert("Poxa, que pena! Você perdeu... 😞");
+                window.location.reload();
+            }, 50);
+        }
+    }
+
+    function checkWin() {
+        let finalWord = hideWord.filter((h) => (h !== '_'));
+        
+        if(finalWord.join("") === hideWord.join("")) {
+            setColor("green");            
+            setTimeout(() => {
+                alert("Parabéns!!! Você ganhou o jogo! 😁");
+                window.location.reload();
+            }, 50);
+        }
     }
 
     return (
