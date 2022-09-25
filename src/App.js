@@ -72,6 +72,7 @@ export default function App() {
             setTimeout(() => {
                 alert("Parabéns!!! Você ganhou o jogo! 😁");
                 setClicked(letters);
+                window.location.reload();
             }, 50);
         } else {
             setHangman(images[images.length - 1]);
@@ -80,6 +81,7 @@ export default function App() {
             setTimeout(() => {
                 alert("Poxa, que pena! Você perdeu... 😞");
                 setClicked(letters);
+                window.location.reload();
             }, 50);
         }
     }
@@ -115,6 +117,7 @@ export default function App() {
             setTimeout(() => {
                 alert("Poxa, que pena! Você perdeu... 😞");
                 setClicked(letters);
+                window.location.reload();
             }, 50);
         }
     }
@@ -127,6 +130,7 @@ export default function App() {
             setTimeout(() => {
                 alert("Parabéns!!! Você ganhou o jogo! 😁");
                 setClicked(letters);
+                window.location.reload();
             }, 50);
         }
     }
