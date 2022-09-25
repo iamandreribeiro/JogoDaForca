@@ -20,11 +20,13 @@ const letters = [
     "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
 ];
 
-let randomElement = "";
-
 let i = 0;
 
+let randomWord = [];
 let novoArray = [];
+let pressedKeys = [];
+let cleanAccent = [];
+let guessArray = [];
 
 export default function App() {
     const [disabled, setDisabled] = useState(false);
@@ -35,21 +37,23 @@ export default function App() {
     const [hideWord, setHideWord] = useState([]);
     const [input, setInput] = useState("");
     const [color, setColor] = useState("");
+    const [clicked, setClicked] = useState([]);
 
-    function chooseWord() {
+    function startGame() {
         setDisabled(true);
         setDisabledInput(false);
         setDisabledButton(false);
 
-        randomElement = words[Math.floor(Math.random() * words.length)];
-        console.log(randomElement);
-        setWord(randomElement.split(""));
+        randomWord = words[Math.floor(Math.random() * words.length)];
 
-        for (let i = 0; i < randomElement.length; i++) {
+        cleanAccent = randomWord.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+        setWord(cleanAccent.split(""));
+
+        for (let i = 0; i < randomWord.length; i++) {
             novoArray.push('_');
         }
 
-        console.log(novoArray.length);
         setHideWord(novoArray);
     }
 
@@ -57,20 +61,34 @@ export default function App() {
         setDisabledInput(true);
         setInput(e.target.value);
 
-        if (input.toLowerCase() === randomElement.toLowerCase()) {
-            setColor("green");
-            setHideWord(word);
-            setTimeout(() => {                
-                alert("Você ganhou o jogo");
-            }, 50);
-        } else {
-            setHangman(images[images.length - 1]);
-            setColor("red");
-            setHideWord(word);
-            setTimeout(() => {
-                alert("Você perdeu o jogo");
-            }, 50);
+        for (let i = 0; i < randomWord.length; i++) {
+            guessArray.push(randomWord[i]);
         }
+    }
+
+    function pickKey(key) {
+        setClicked([...clicked, key]);
+
+        pressedKeys.push(key);
+
+        cleanAccent.toUpperCase().includes(key) ? rightGuess(key) : wrongGuess(); 
+    }
+
+    function rightGuess(key) {
+        word.map((w, i) => {
+            if(w.toUpperCase() === key) {
+                novoArray[i] = randomWord[i];
+                setHideWord(novoArray);
+            }
+        })
+
+        checkWin();
+    }
+
+    function wrongGuess() {
+        i++;
+
+        setHangman(images[i]);
     }
 
     return (
@@ -78,7 +96,7 @@ export default function App() {
             <div className="gameScreen">
                 <img src={hangman} alt="vaiCurintia :eagle:" />
 
-                <button onClick={chooseWord} disabled={disabled}>Escolher palavra</button>
+                <button onClick={startGame} disabled={disabled}>Escolher palavra</button>
 
                 <div className="choosenWord">
                     {
@@ -97,7 +115,10 @@ export default function App() {
                 <div className="keyboard">
                     {
                         letters.map((letter, index) => {
-                            return <button value={letter} key={index} className="key" disabled={disabledButton}>
+                            return <button onClick={() => pickKey(letter)}
+                                key={index}
+                                disabled={clicked.includes(letter) ? true : false}
+                                className={clicked.includes(letter) ? "pressedKey" : "key"}>
                                 {letter}
                             </button>
                         })
@@ -106,8 +127,14 @@ export default function App() {
 
                 <div className="guessWord">
                     Já sei a palavra!
-                    <input type="text" placeholder="Escreva aqui..." onChange={(e) => setInput(e.target.value)} disabled={disabledInput}></input>
-                    <button onClick={guessWord} disabled={disabledInput}>Chutar</button>
+
+                    <input type="text" placeholder="Escreva aqui..." 
+                        onChange={(e) => setInput(e.target.value)} disabled={disabledInput}>                            
+                    </input>
+
+                    <button onClick={guessWord} disabled={disabledInput}>
+                        Chutar
+                    </button>
                 </div>
             </div>
         </div>

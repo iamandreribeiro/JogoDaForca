@@ -90,6 +90,14 @@ img {
 }
 
 .key {
+    color: rgb(93, 136, 150);
+    background-color: rgb(173, 216, 230);
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.pressedKey {
     color: rgb(109, 109, 109);
     background-color: darkgray;
     height: 40px;
