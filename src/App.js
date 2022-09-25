@@ -37,9 +37,10 @@ export default function App() {
     const [hideWord, setHideWord] = useState([]);
     const [input, setInput] = useState("");
     const [color, setColor] = useState("");
-    const [clicked, setClicked] = useState([]);
+    const [clicked, setClicked] = useState(letters);
 
     function startGame() {
+        setClicked([]);
         setDisabled(true);
         setDisabledInput(false);
         setDisabledButton(false);
@@ -70,7 +71,7 @@ export default function App() {
             setHideWord(guessArray);
             setTimeout(() => {
                 alert("Parabéns!!! Você ganhou o jogo! 😁");
-                window.location.reload();
+                setClicked(letters);
             }, 50);
         } else {
             setHangman(images[images.length - 1]);
@@ -78,7 +79,7 @@ export default function App() {
             setHideWord(guessArray);
             setTimeout(() => {
                 alert("Poxa, que pena! Você perdeu... 😞");
-                window.location.reload();
+                setClicked(letters);
             }, 50);
         }
     }
@@ -113,7 +114,7 @@ export default function App() {
             setHideWord(word);
             setTimeout(() => {
                 alert("Poxa, que pena! Você perdeu... 😞");
-                window.location.reload();
+                setClicked(letters);
             }, 50);
         }
     }
@@ -125,7 +126,7 @@ export default function App() {
             setColor("green");            
             setTimeout(() => {
                 alert("Parabéns!!! Você ganhou o jogo! 😁");
-                window.location.reload();
+                setClicked(letters);
             }, 50);
         }
     }
