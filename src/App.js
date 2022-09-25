@@ -81,8 +81,6 @@ export default function App() {
                 setHideWord(novoArray);
             }
         })
-
-        checkWin();
     }
 
     function wrongGuess() {
